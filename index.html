@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>YUNGUS – Documenting the climb</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="YUNGUS – documenting the climb through Hey Stripes content, music, words and visual experiments." />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #050608;
+      --bg-alt: #111217;
+      --text: #f5f5f5;
+      --muted: #a7a7a7;
+      --accent: #ff6a3d;
+      --card-bg: #151820;
+      --border: #2a2d37;
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    .page { min-height: 100vh; display: flex; flex-direction: column; }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(to bottom, rgba(5,6,8,0.96), rgba(5,6,8,0.88));
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-circle {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: radial-gradient(circle at 30% 10%, #ffffff22, #050608);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+    .logo-main {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+    .logo-sub {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      font-size: 0.9rem;
+    }
+    .nav-links a {
+      padding-bottom: 4px;
+      border-bottom: 1px solid transparent;
+    }
+    .nav-links a:hover {
+      border-color: var(--accent);
+    }
+    .nav-cta {
+      font-size: 0.85rem;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #050608;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+    }
+    main { flex: 1; }
+    .section {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 40px;
+      align-items: center;
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.68rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .hero h1 {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-weight: 700;
+      font-size: clamp(2.4rem, 4vw, 3.2rem);
+      margin-bottom: 10px;
+    }
+    .tagline {
+      font-size: 0.95rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 16px;
+    }
+    .hero p {
+      color: var(--muted);
+      max-width: 30rem;
+      margin-bottom: 22px;
+    }
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .btn-primary, .btn-secondary {
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      background: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #050608;
+    }
+    .btn-secondary {
+      border-color: var(--border);
+      color: var(--text);
+    }
+    .hero-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .hero-card {
+      background: radial-gradient(circle at top, #1e222f, #050608);
+      border-radius: 26px;
+      padding: 22px 20px;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .stripe-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      margin-bottom: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .stripe-tag span {
+      width: 36px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      border-radius: 999px;
+    }
+    .hero-card h2 {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+    .hero-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .pill {
+      font-size: 0.72rem;
+      border-radius: 999px;
+      padding: 6px 10px;
+      border: 1px solid var(--border);
+      background: rgba(5,6,8,0.7);
+      backdrop-filter: blur(10px);
+    }
+    .pill.highlight {
+      border-color: var(--accent);
+      background: rgba(255,106,61,0.08);
+      color: var(--accent);
+    }
+    .hero-badge {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    .stripe-bg {
+      position: absolute;
+      inset: auto -60px -40px auto;
+      width: 260px;
+      height: 60px;
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(255,255,255,0.04),
+        rgba(255,255,255,0.04) 8px,
+        transparent 8px,
+        transparent 16px
+      );
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 14px;
+    }
+    .section-header h2 {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+    .section-header span {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+      margin-top: 16px;
+    }
+    .pillars .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 18px 16px;
+      border: 1px solid var(--border);
+    }
+    .pillars h3 {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+    .pillars p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .pillars a {
+      font-size: 0.8rem;
+      color: var(--accent);
+    }
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .featured-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 16px 16px 14px;
+      border: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+    .featured-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .featured-title {
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+    .featured-meta {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .featured-link {
+      font-size: 0.8rem;
+      color: var(--accent);
+    }
+    .lifestyle {
+      background: linear-gradient(135deg, #111217, #050608);
+      border-radius: 26px;
+      padding: 24px 20px;
+      border: 1px solid var(--border);
+      margin-top: 30px;
+    }
+    .lifestyle h2 {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-size: 1.3rem;
+      margin-bottom: 6px;
+    }
+    .lifestyle p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .lifestyle-tag {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .social-email {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 24px;
+      margin-top: 32px;
+      align-items: center;
+    }
+    .social-icons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+      font-size: 0.9rem;
+    }
+    .social-pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .email-box label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 6px;
+    }
+    .email-input-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .email-input-row input {
+      flex: 1;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #050608;
+      color: var(--text);
+      font-size: 0.85rem;
+    }
+    .email-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    footer {
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 16px 20px 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+    }
+    @media (max-width: 840px) {
+      .hero { grid-template-columns: minmax(0, 1fr); }
+      .hero-card { order: -1; }
+      .pillars { grid-template-columns: minmax(0, 1fr); }
+      .featured-grid { grid-template-columns: minmax(0, 1fr); }
+      .social-email { grid-template-columns: minmax(0, 1fr); }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="nav">
+        <div class="logo-wrap">
+          <div class="logo-circle">YG</div>
+          <div>
+            <div class="logo-main">Yungus</div>
+            <div class="logo-sub">Documenting the climb.</div>
+          </div>
+        </div>
+        <nav class="nav-links">
+          <a href="#pillars">Hub</a>
+          <a href="#featured">Latest</a>
+          <a href="#journal">Journal</a>
+          <a href="#connect">Connect</a>
+        </nav>
+        <button class="nav-cta" onclick="document.getElementById('featured').scrollIntoView({behavior:'smooth'})">
+          Enter the World
+        </button>
+      </div>
+    </header>
+    <main>
+      <section class="section hero">
+        <div>
+          <div class="eyebrow">Yungus</div>
+          <h1>One hub for stripes, sounds, stories &amp; scenes.</h1>
+          <div class="tagline">Documenting the climb.</div>
+          <p>
+            A living archive of everything I’m building — Hey Stripes content, music, blogs,
+            and visual experiments. No fake flex. Just the work, the chaos, and the wins.
+          </p>
+          <div class="hero-buttons">
+            <button class="btn-primary" onclick="document.getElementById('pillars').scrollIntoView({behavior:'smooth'})">
+              Explore the hub
+            </button>
+            <button class="btn-secondary" onclick="location.href='music.html'">
+              Listen to the music
+            </button>
+          </div>
+          <div class="hero-meta">
+            Built slow &amp; real. Updated as life happens.
+          </div>
+        </div>
+        <aside class="hero-card">
+          <div class="stripe-tag">
+            <span></span>
+            Hey Stripes lives here now
+          </div>
+          <h2>Humble designer energy, loud personality.</h2>
+          <p>
+            Clean layouts, sharp type, and just enough flare to feel like a lifestyle brand —
+            because it is one.
+          </p>
+          <div class="hero-tags">
+            <div class="pill">Hey Stripes clips</div>
+            <div class="pill">Music links</div>
+            <div class="pill">Blogs &amp; notes</div>
+            <div class="pill">AI &amp; custom art</div>
+            <div class="pill highlight">Documenting the climb.</div>
+          </div>
+          <div class="hero-badge">
+            This is where it all connects — content, merch, music, and the people tuned in.
+          </div>
+          <div class="stripe-bg"></div>
+        </aside>
+      </section>
+
+      <section class="section" id="pillars">
+        <div class="section-header">
+          <h2>Core Pillars</h2>
+          <span>The lanes inside Yungus.</span>
+        </div>
+        <div class="pillars">
+          <div class="card">
+            <h3>Hey Stripes &amp; Merch</h3>
+            <p>
+              Clips, skits, and that unfiltered energy that gets the refs heated.
+              Grab the pieces that rep the movement in real life.
+            </p>
+            <a href="merch.html">→ Watch &amp; Shop</a>
+          </div>
+          <div class="card">
+            <h3>Music</h3>
+            <p>
+              Late-night tracks, driving anthems, and everything I can’t say any other way.
+              Stream it, save it, live with it.
+            </p>
+            <a href="music.html">→ Listen Now</a>
+          </div>
+          <div class="card">
+            <h3>Words &amp; Art</h3>
+            <p>
+              Blogs, notes, life updates, and the visual worlds I build —
+              from AI-generated scenes to hand-built concepts.
+            </p>
+            <a href="#journal">→ Read &amp; View</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="featured">
+        <div class="section-header">
+          <h2>Fresh Drops</h2>
+          <span>Recently added to the world.</span>
+        </div>
+        <div class="featured-grid">
+          <article class="featured-card">
+            <div class="featured-label">Hey Stripes</div>
+            <div class="featured-title">Newest “Hey Stripes” episode</div>
+            <div class="featured-meta">
+              2 min watch · refs in shambles
+            </div>
+            <a href="merch.html" class="featured-link">→ Watch the clip (soon)</a>
+          </article>
+          <article class="featured-card">
+            <div class="featured-label">Music</div>
+            <div class="featured-title">Featured track of the week</div>
+            <div class="featured-meta">
+              Stream on Spotify · Apple · YouTube
+            </div>
+            <a href="music.html" class="featured-link">→ Play the track (soon)</a>
+          </article>
+          <article class="featured-card" id="journal">
+            <div class="featured-label">Journal &amp; Art</div>
+            <div class="featured-title">Latest note from the road</div>
+            <div class="featured-meta">
+              New entry + visual drop from the creative trenches.
+            </div>
+            <a href="#" class="featured-link">→ Journal coming soon</a>
+          </article>
+        </div>
+
+        <div class="lifestyle">
+          <div class="lifestyle-tag">Lifestyle &amp; direction</div>
+          <h2>Humble, but you can feel the weight.</h2>
+          <p>
+            This isn’t a polished “brand story” — it’s a running log of the work, the risks,
+            and the small wins that stack up. If you’re here, you’re early.
+          </p>
+        </div>
+
+        <div class="social-email" id="connect">
+          <div>
+            <div class="section-header">
+              <h2>Connect</h2>
+              <span>Follow, share, chirp.</span>
+            </div>
+            <p style="font-size:0.9rem; color:var(--muted); max-width:26rem;">
+              Tap in wherever you hang out most. Clips, drops, behind-the-scenes, and way too many ref complaints.
+            </p>
+            <div class="social-icons">
+              <div class="social-pill">X / Twitter</div>
+              <div class="social-pill">Instagram</div>
+              <div class="social-pill">TikTok</div>
+              <div class="social-pill">YouTube</div>
+              <div class="social-pill">Spotify</div>
+            </div>
+          </div>
+          <div class="email-box">
+            <label for="email">Stay tapped into Yungus.</label>
+            <div class="email-input-row">
+              <input id="email" type="email" placeholder="you@example.com" />
+              <button class="btn-primary" type="button">Join the World</button>
+            </div>
+            <div class="email-note">
+              No spam. Just drops, releases, and the moments worth talking about.
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="footer-inner">
+        <span>© <span id="year"></span> Yungus. Documenting the climb.</span>
+        <span>Built one brick at a time.</span>
+      </div>
+    </footer>
+  </div>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
